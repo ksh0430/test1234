@@ -10,14 +10,14 @@ import pprint
 import os
 
 # Credentials & Region
-access_key = os.environ["AWS_ACCESS_KEY_ID"]
-secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
-region = os.environ["AWS_DEFAULT_REGION"]
+access_key = ""
+secret_key = ""
+region = ""
 
 # ECS Details
-cluster_name = "BotoCluster"
-service_name = "service_hello_world"
-task_name = "hello_world"
+cluster_name = ""
+service_name = ""
+task_name = ""
 
 # Let's use Amazon ECS
 '''
@@ -35,12 +35,18 @@ from ansible.module_utils.ec2 import boto3_conn, ec2_argument_spec, get_aws_conn
 def test_main():
   argument_spec = ec2_argument_spec()
   argument_spec.update(
-    dict(      
+    dict(
+	  region = dict(type='str', required=True),
+	  access_key = dict(type='str', required=True),
+	  secret_key = dict(type='str', required=True),
+	  cluster_name = dict(type='str', required=True),
+	  service_name = dict(type='str', required=True),
+	  task_name = dict(type='str', required=True),
       params=dict(type='dict', required=False, default={}, aliases=['method_params']),
       convert_param_case=dict(required=False, default=None, choices=['camel', 'Pascale'])
     )
   )
-						   
+  
   module = AnsibleModule(
     argument_spec=argument_spec,
     supports_check_mode=True,
@@ -48,7 +54,11 @@ def test_main():
     required_together=[]
   )
   
-  msg = "play done"  
+  access_key = module.params['access_key']
+  secret_key = module.params['secret_key']
+
+  msg = access_key + "----" + secret_key
+  
   
   result = dict(changed=False, output=msg)
   module.exit_json(**result)

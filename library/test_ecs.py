@@ -10,8 +10,8 @@ import pprint
 import os
 
 # Credentials & Region
-access_key = os.environ["AWS_ACCESS_KEY_ID"]
-secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
+access_key = os.environ["access_key"]
+secret_key = os.environ["secret_key"]
 region = "us-east-1"
 
 # ECS Details

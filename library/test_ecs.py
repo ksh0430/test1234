@@ -1,4 +1,11 @@
-import boto3
+#!/usr/bin/python
+
+try:
+  import boto3
+  HAS_BOTO3 = True
+except ImportError:
+  HAS_BOTO3 = False
+
 import pprint
 import os
 

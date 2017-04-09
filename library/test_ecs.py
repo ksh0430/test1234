@@ -10,11 +10,9 @@ import pprint
 import os
 
 # Credentials & Region
-#access_key = os.environ["access_key"]
-#secret_key = os.environ["secret_key"]
-access_key = ""
-secret_key = ""
-region = "us-east-1"
+access_key = os.environ["AWS_ACCESS_KEY_ID"]
+secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
+region = os.environ["AWS_DEFAULT_REGION"]
 
 # ECS Details
 cluster_name = "BotoCluster"
@@ -42,18 +40,15 @@ def test_main():
       convert_param_case=dict(required=False, default=None, choices=['camel', 'Pascale'])
     )
   )
-	
+						   
   module = AnsibleModule(
     argument_spec=argument_spec,
-    supports_check_mode=False,
+    supports_check_mode=True,
     mutually_exclusive=[],
     required_together=[]
   )
   
-  access_key = module.params['access_key']
-  secret_key = module.params['secret_key']
-
-  msg = access_key + "----" + secret_key
+  msg = "play done"  
   
   result = dict(changed=False, output=msg)
   module.exit_json(**result)

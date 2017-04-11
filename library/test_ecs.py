@@ -58,7 +58,8 @@ def test_main():
   secret_key = module.params['secret_key']
 
   msg = access_key + "----" + secret_key
-  
+	
+  pprint.pprint(msg)  
   
   result = dict(changed=False, output=msg)
   module.exit_json(**result)
